@@ -13,13 +13,15 @@ import java.util.logging.Logger;
 
 @WebServlet(name = "login", value = "/login")
 public class LoginJ extends HttpServlet {
-    private String message;
+    private String name = "Maggus Webshop";
+    private String loginMessage = "";
 
-    public void init() {
-        System.out.println("LoginJ is initialized . whhoop");
-        message = "<!doctype html> <html> <head> <meta charset=\"UTF-8\"> <title>" + message +  "</title> </head> <body> \n" +
-                "            <div id=\"login-square\" style=\"background-color: lightgray; width: 300px; height: 300px; margin: 0 auto; padding: 50px\" > \n" +
-                "            <h3> Log-In to our Webshop Susi wants to Chat! </h3>\n" +
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        name = request.getSession().getAttribute("index-name").toString();
+        response.setContentType("text/html");
+
+        loginMessage = "<div id=\"login-square\" style=\"background-color: lightgray; width: 300px; height: 300px; margin: 0 auto; padding: 50px\" > \n" +
+                "            <h3> Log-In to "+ name +"! </h3>\n" +
                 "            <form style=\"padding: 20px\" method=\"post\">\n" +
                 "                <input type=\"text\" placeholder=\"Username\" id=\"cred-user\" name=\"cred-user\" <br>\n" +
                 "                <input type=\"password\" placeholder=\"Password\" id=\"cred-password\" name=\"cred-password\"> <br>\n" +
@@ -28,15 +30,12 @@ public class LoginJ extends HttpServlet {
                 "            </div>\n" +
                 "            </body>\n" +
                 "            </html>";
-    }
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html");
-
-        // Hello
         PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<h1>" + message + "</h1>");
+        out.println("<!doctype html> <html> <head> <meta charset=\"UTF-8\"> <title>" + name + "</title> </head>");
+        out.println("<body>");
+        out.println("<h1>" + name + "</h1>");
+        out.println(loginMessage);
         out.println("</body></html>");
     }
 
@@ -52,13 +51,14 @@ public class LoginJ extends HttpServlet {
 
         if(Validate.checkUser(email, pass))
         {
-            response.sendRedirect("/webshop");
+
+            response.sendRedirect("webshop");
+
         }
         else
         {
             out.println("Username or Password incorrect");
-            RequestDispatcher rs = request.getRequestDispatcher("index.html");
-            rs.include(request, response);
+            response.sendRedirect("login");
         }
     }
 
