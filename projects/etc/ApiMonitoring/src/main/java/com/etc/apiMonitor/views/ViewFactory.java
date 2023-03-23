@@ -110,7 +110,7 @@ public class ViewFactory {
                 clientsView = new FXMLLoader(getClass().getResource("/fxml/admin/clients.fxml")).load();
             } catch (IOException e) {
                 e.printSt:wq
-            :wqackTrace();
+            ackTrace();
             }
         }
         return clientsView;
