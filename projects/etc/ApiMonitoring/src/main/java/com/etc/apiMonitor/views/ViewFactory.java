@@ -8,6 +8,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -27,6 +28,7 @@ public class ViewFactory {
     private AnchorPane createClientView;
     private AnchorPane clientsView;
     private AnchorPane depositView;
+    private ListView<Client> clientsListView;
 
 
 
@@ -107,7 +109,8 @@ public class ViewFactory {
             try {
                 clientsView = new FXMLLoader(getClass().getResource("/fxml/admin/clients.fxml")).load();
             } catch (IOException e) {
-                e.printStackTrace();
+                e.printSt:wq
+            :wqackTrace();
             }
         }
         return clientsView;
@@ -122,6 +125,12 @@ public class ViewFactory {
             }
         }
         return depositView;
+    }
+
+    public ListView<Client> getClientListView() {
+        clientsListView = new ListView<>();
+        clientsListView.setCellFactory(new Callback);
+        return clientsListView;
     }
 
     public void showAdminWindow() {
